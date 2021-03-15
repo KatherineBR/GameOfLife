@@ -5,6 +5,11 @@ import processing.core.PApplet;
  * classes for the details. GameOfLifeApp sets up the cell array, runs draw to display, deals with mouse clicks and key
  * presses, and iterates over every non border cell to call evolve and apply rules (from Cell class). It tells the
  * program where to start and also has a getter so other classes can access the GameOfLife app.
+ *
+ * Extension: nature of code historical element. As evolutions pass, if a certain cell is staying alive, it's colorful
+ * purple-ness increases too.
+ *
+ * Life-like: day and night is an additional option you can access from the menu for a different set of rules!
  */
 public class GameOfLifeApp extends PApplet{
     private static GameOfLifeApp app; //object is the whole class -- reference to itself so other classes can use
@@ -120,7 +125,7 @@ public class GameOfLifeApp extends PApplet{
 
     /**
      * calls super class method, establishes what row and column the cell clicked was, calls handleMouseClicked for
-     * the cell in the clicked row and column.
+     * the cell in the clicked row and column if not showing menu.
      */
     @Override
     public void mouseClicked() { //let us make alive or dead indvl cells with a click
@@ -133,7 +138,10 @@ public class GameOfLifeApp extends PApplet{
     }
 
     /**
-     * calls super class (PApplet) method, changes the state of boolean evolve to turn on or off cell evolution
+     * calls super class (PApplet) method &...
+     * changes the state of boolean evolve to turn on or off cell evolution with space, lets user in menu choose conways
+     * rules or day & night rules with keys c and d, lets user return to menu (so they can then see instructions and
+     * choose diff rules if they want)
      */
     @Override
     public void keyPressed() {

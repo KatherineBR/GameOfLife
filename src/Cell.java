@@ -26,6 +26,7 @@ public class Cell {
      * @param _column column in grid for this specific cell
      * @param _cellstate what state it's in (alive, dead, etc)
      * @param _rules an object of rules that we use to access Rule methods
+     * @param _history how many evolutions the cell has been alive at once
      */
 
     public Cell (int _x, int _y, int _size, int _row, int _column, CellState _cellstate, Rules _rules, int _history){
@@ -41,7 +42,7 @@ public class Cell {
 
     /**
      * display continuously runs, making all the grid cells (rectangles of size CELL_SIZE on both dimensions). It also
-     * decides the fill and stroke color when alive versus when dead.
+     * decides the fill and stroke color when alive versus when dead. When alive, it increments the colorful purpleness of the color as it stays alive more and more evolutions.
      */
     public void display(){
         GameOfLifeApp app = GameOfLifeApp.getApp();
@@ -77,12 +78,14 @@ public class Cell {
     } //check if should be alive or dead
 
     /**
-     * evolve lets the cells with cellStates will_-- become the new state!
+     * evolve lets the cells with cellStates will_-- become the new state! if staying alive, it records that in history!
+     * if dying, it resets history, so it will star over the count.
      */
     public void evolve(){ //put it to next state
         if (cellState == CellState.WILL_REVIVE){
              cellState = CellState.ALIVE;
         } else if (cellState == CellState.WILL_DIE){
+            history = 0;
             cellState = CellState.DEAD;
         } else if (cellState == CellState.ALIVE){
             history++;
